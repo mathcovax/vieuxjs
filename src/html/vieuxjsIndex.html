@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- <script>
+        let session = window.sessionStorage.getItem("session")? window.sessionStorage.getItem("session") : "{session}"
+        if(session != "{session}") window.sessionStorage.clear()
+        window.sessionStorage.setItem("session", "{session}")
+        window.addEventListener("pageshow", () => {
+            window.removeEventListener("pageshow", window, false)
+            let js = document.createElement("script")
+            js.innerHTML = "window.onpageshow = function() { window.location.reload() }"
+            js.dataset.vieujs = ""
+            document.head.prepend(js)
+        })
+        document.currentScript.remove()
+    </script> -->
+    <script src="/vieuxjs/defaultScript"></script>
+</head>
+<body>
+    <div>
+        <div id="loading-overlay" style="position: fixed; display: block; z-index: 9999; width: 100%; height: 100%; background-color: white;"></div>
+        <div id="css" style="display: none;"></div>
+        <object id="import-body" data="/vieuxjs/import-body" type="text/html" style="width: 0; height: 0;"></object>
+    </div>
+</body>
+</html>
