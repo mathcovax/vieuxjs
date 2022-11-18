@@ -38,7 +38,7 @@ class LoadingOverlay{
         this.constructor.#processes[process] = this;
     }
 
-    static timespan = 200;
+    static timespan = 250;
 
     get element(){
         return document.body.children[0].querySelector("#loading-overlay[data-vieuxjs]");

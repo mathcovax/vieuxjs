@@ -28,8 +28,8 @@ class ToPage{
         oldUrl = oldUrl.split("?")[0];
         this.#newPage = new DOMParser().parseFromString(html, "text/html");
         this.#currentid = this.#newPage.body.dataset.vieuxjsPage;
-        window.history.pushState(null, null, this.#currentUrl);
         document.title = this.#newPage.title || document.title;
+        window.history.pushState(null, null, this.#currentUrl);
         this.#rectiNewPage();
         this.#head(newUrl, oldUrl);
         await this.#loadCss(newUrl);
@@ -242,8 +242,6 @@ class ToPage{
             throw new Error("");
         }
     }
-
-    static timeoutLoadingOverlay = 500
     
     /**
      * @type {Document}
@@ -333,6 +331,14 @@ window.onload = async () => {
     ToPage.elementVieuxjs.querySelector("#import-body").replaceWith(div);
     for(const style of ToPage.elementVieuxjs.querySelector("#import-body").querySelectorAll("style[type='script']")){
         style.outerHTML = style.innerHTML;
+    }
+    for(const script of ToPage.elementVieuxjs.querySelector("#import-body").querySelectorAll("script")){
+        let s = document.createElement("script");
+        s.innerHTML = script.innerHTML;
+        for(let index = 0; index < script.attributes.length; index++){
+            s.attributes.setNamedItem(script.cloneNode(true).attributes.removeNamedItem(script.attributes.item(index).name));
+        }
+        script.replaceWith(s);
     }
 
     ToPage.begin(window.location.href, Date.now() + "?" + Date.now());

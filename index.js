@@ -11,8 +11,16 @@ export {
 }
 
 export default class Vieuxjs{
-    static Root = Root;
-    static Page = Page;
-    static Component = Component;
-    static Socket = Socket;
+    static get Root(){
+        return Root;
+    }
+    static get Page(){
+        return Page;
+    }
+    static get Component(){
+        return Component;
+    }
+    static get Socket(){
+        return Socket;
+    }
 }
