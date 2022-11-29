@@ -206,8 +206,8 @@ class ToPage{
         }
     }
 
-    static reload(){
-        tp(window.location.href)
+    static async reload(){
+        return await this.begin(window.location.href);
     }
 
     static error = (e) => {throw e}
@@ -312,7 +312,7 @@ document.addEventListener("click", (e) => {
     }
 })
 
-window.addEventListener('popstate', (e) => {
+window.addEventListener("popstate", (e) => {
     window.location.reload();
 })
 

@@ -93,10 +93,15 @@ class Loc{
 }
 
 async function forPromise(array, fnc){
-    let listPromise = []
+    let listPromise = [];
     for(let value of array){
-        listPromise.push(fnc(value))
+        listPromise.push(fnc(value));
     }
-    return await Promise.all(listPromise)
+    return await Promise.all(listPromise);
 }
 
+async function sleep(timespan=0){
+    await new Promise((resolve) => {
+        setTimeout(resolve, timespan);
+    });
+}
