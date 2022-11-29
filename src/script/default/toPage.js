@@ -20,10 +20,11 @@ class ToPage{
             for(const tag of document.body.querySelectorAll("[data-vieuxjs-page]")){
                 tag.remove();
             }
-            await this.#unloadScripts("?", oldUrl);
+            await this.#unloadScripts(newUrl, oldUrl);
             oldUrl = "?";
         }
         this.#currentUrl = newUrl;
+        this.#history.push(newUrl);
         newUrl = newUrl.split("?")[0];
         oldUrl = oldUrl.split("?")[0];
         this.#newPage = new DOMParser().parseFromString(html, "text/html");
@@ -207,11 +208,29 @@ class ToPage{
     }
 
     static async reload(){
-        return await this.begin(window.location.href);
+        return await this.begin(window.location.href, this.#currentUrl);
     }
 
-    static error = (e) => {throw e}
+    static error = (e) => {throw e};
     
+    static get history(){
+        return this.#history;
+    }
+    
+    static #history = class history{
+        static push(url){
+            this.#state.push(url);
+            if(this.#state.length > 50)this.#state.splice(0, 1);
+            console.log(this.#state);
+        }
+    
+        static back(){
+            ToPage.begin(this.#state.splice(-2, 1)[0], this.#state.splice(-1, 1)[0]);
+        }
+        
+        static #state = [];
+    }
+
     static #scriptsPage = {}
 
     static #pageVariable = {}
@@ -313,7 +332,8 @@ document.addEventListener("click", (e) => {
 })
 
 window.addEventListener("popstate", (e) => {
-    window.location.reload();
+    ToPage.history.back();
+    e.preventDefault()
 })
 
 window.onload = async () => {
