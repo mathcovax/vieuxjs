@@ -221,7 +221,6 @@ class ToPage{
         static push(url){
             this.#state.push(url);
             if(this.#state.length > 50)this.#state.splice(0, 1);
-            console.log(this.#state);
         }
     
         static back(){
