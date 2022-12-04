@@ -57,7 +57,7 @@ class ToPage{
         for(const tag of this.#newPage.head.querySelectorAll("[data-vieuxjs-page]:not(link[rel='stylesheet'])")){
             this.elementHead.append(tag);
         }
-        for(const tag of this.elementHead.querySelectorAll(":not([data-vieuxjs-page='"+ this.#currentid +"']):not([data-vieuxjs-default]):not([data-vieuxjs])")){
+        for(const tag of this.elementHead.querySelectorAll("[data-vieuxjs-page]:not([data-vieuxjs-page='"+ this.#currentid +"'])")){
             tag.remove();
         }
     }
@@ -115,7 +115,7 @@ class ToPage{
                             script.onload = resolve;
                             script.onerror = resolve;
                             for(let index = 0; index < script.attributes.length; index++){
-                                s.attributes.setNamedItem(script.cloneNode(true).attributes.removeNamedItem(script.attributes.item(index).name));
+                                s.attributes.setNamedItem(script.cloneNode().attributes.removeNamedItem(script.attributes.item(index).name));
                             }
                             script.replaceWith(s);
                         })
@@ -135,7 +135,7 @@ class ToPage{
                             returnLoad: {}
                         }
                         for(let index = 0; index < script.attributes.length; index++){
-                            s.attributes.setNamedItem(script.cloneNode(true).attributes.removeNamedItem(script.attributes.item(index).name));
+                            s.attributes.setNamedItem(script.cloneNode().attributes.removeNamedItem(script.attributes.item(index).name));
                         }
                         s.innerHTML = script.innerHTML
                         script.replaceWith(s);
@@ -349,15 +349,17 @@ window.onload = async () => {
     div.innerHTML = ToPage.elementVieuxjs.querySelector("#import-body").contentWindow.document.body.innerHTML;
     ToPage.elementVieuxjs.querySelector("#import-body").replaceWith(div);
     for(const style of ToPage.elementVieuxjs.querySelector("#import-body").querySelectorAll("style[type='script']")){
-        style.outerHTML = style.innerHTML;
-    }
-    for(const script of ToPage.elementVieuxjs.querySelector("#import-body").querySelectorAll("script")){
-        let s = document.createElement("script");
-        s.innerHTML = script.innerHTML;
-        for(let index = 0; index < script.attributes.length; index++){
-            s.attributes.setNamedItem(script.cloneNode(true).attributes.removeNamedItem(script.attributes.item(index).name));
+        const div = document.createElement("div");
+        const script = document.createElement("script");
+
+        div.innerHTML = style.innerHTML;
+        for(let index = 0; index < div.children[0].attributes.length; index++){
+            script.attributes.setNamedItem(div.children[0].cloneNode().attributes.removeNamedItem(div.children[0].attributes.item(index).name));
         }
-        script.replaceWith(s);
+        script.dataset.vieuxjsDefault = "";
+        script.innerHTML = div.children[0].innerHTML;
+
+        style.replaceWith(script);
     }
 
     ToPage.begin(window.location.href, Date.now() + "?" + Date.now());

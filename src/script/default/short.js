@@ -47,7 +47,7 @@ class Loc{
     static get args(){
         if(this.href.indexOf("?") > -1){
             let args = {};
-            for(const arg of this.#href.split("?")[1].split("&")){
+            for(const arg of this.href.split("?")[1].split("&")){
                 args[arg.split("=")[0]] = arg.split("=")[1];
             }
             return args;

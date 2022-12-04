@@ -5,7 +5,7 @@ class ToMethod{
         option.scrollTo = option.scrollTo || true;
         option.header = option.header || {};
         option.loadingOverlay = option.loadingOverlay === true? 
-            loadingOverlay.timespan :  
+            LoadingOverlay.timespan :  
             Number.isInteger(option.loadingOverlay)?
                 option.loadingOverlay :
                 false;
