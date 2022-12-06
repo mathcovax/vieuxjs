@@ -1,6 +1,6 @@
 {
   "name": "vieuxjs",
-  "version": "0.0.363",
+  "version": "0.0.370",
   "description": "okok",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,7 @@
     "cookie-parser": "^1.4.6",
     "express": "^4.18.2",
     "jsdom": "^20.0.2",
+    "jsonwebtoken": "^8.5.1",
     "sass": "^1.56.1",
     "socket.io": "^4.5.3"
   }
