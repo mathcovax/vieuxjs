@@ -8,6 +8,7 @@ declare namespace Short {
         otherAccess(path: string, type: requestType): Promise<Boolean | undefined>;
         e(data:Object):void;
         r(data:URL):void;
+        json: object;
         info: string;
         t: tokenObj;
     }
@@ -17,6 +18,7 @@ declare namespace Short {
         s(data:Object):void;
         e(data:Object):void;
         r(data:URL):void;
+        json: object;
         info: string;
         t: tokenObj;
     }
@@ -26,6 +28,7 @@ declare namespace Short {
     interface handlerObj {
         e(data:Object):void;
         r(data:URL):void;
+        json: object;
         info: string;
         t: tokenObj;
     }

@@ -14,8 +14,6 @@ declare namespace Root {
 
     function makeImportBody(): void;
 
-    function makeNotfoundPage(): void;
-
     function loadAccesses(type: "page" | "method" | undefined): void;
 
     var port: number;
@@ -36,7 +34,7 @@ declare namespace Root {
 
     const isImportBodyMake: boolean;
 
-    var gson: object;
+    var json: object;
 
     var assetsDir: fs.PathLike;
 
@@ -54,11 +52,7 @@ declare namespace Root {
 
     const importBody: string;
 
-    var notFoundPageDefault: string | fs.PathLike;
-
-    const notFoundPage: string;
-
-    function notFound(fnc: (req: express.Request, res: express.Response) => void): void;
+    function notFoundAction(type: "sendPage" | "redirect", arg: string): void;
 
     var loadingOverlay: string | fs.PathLike;
 
