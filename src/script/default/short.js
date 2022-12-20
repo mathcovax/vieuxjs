@@ -41,7 +41,7 @@ class Loc{
     #href = "/";
 
     static get urlArgs(){
-        return (this.href.split("?")[1]? "?" + this.#href.split("?")[1] : "");
+        return (this.href.split("?")[1]? "?" + this.href.split("?")[1] : "");
     }
     
     static get args(){

@@ -39,6 +39,7 @@ declare namespace Short {
         verify(nameKey: Token.nameKey): object | false;
         read(nameKey: Token.nameKey): object;
         refresh(nameKey: Token.nameKey): void;
+        delete(nameKey: Token.nameKey): void;
     }
     function token(req: Object, res: Object): tokenObj;
 }

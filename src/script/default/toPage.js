@@ -178,27 +178,23 @@ class ToPage{
     static async #getPage(newUrl){
         return await new Promise((resolve, reject) => {
             fetch(newUrl, { method: "GET", headers: {...this.#header} }).then(response=>{
-                if(!response.headers.get('content-disposition')){
+                if(!response.headers.get("content-disposition")){
                     response.text().then((rep) => {
-                        if(rep == "reload"){
-                            window.location.reload()
-                        }
-                        else{
-                            resolve({html: rep, repUrl: response.url})
-                        }
+                        this.#params = JSON.parse(response.headers.get("params"));
+                        resolve({html: rep, repUrl: response.url});
                     })
                 }
-                else if(response.headers.get('content-disposition')){
+                else if(response.headers.get("content-disposition")){
                     response.blob().then((data) => {
-                        var a = document.createElement("a")
-                        a.href = window.URL.createObjectURL(data)
-                        a.download = response.headers.get('content-disposition').split('=')[1].replace(/['"]/g, '')
-                        a.click()
-                        reject("download")
+                        var a = document.createElement("a");
+                        a.href = window.URL.createObjectURL(data);
+                        a.download = response.headers.get("content-disposition").split("=")[1].replace(/['"]/g, "");
+                        a.click();
+                        reject("download");
                     })
                 }
-            }).catch(this.error)
-        })
+            }).catch(this.error);
+        });
     }
 
     static async #launchScriptsDefault(event, obj){
@@ -259,6 +255,11 @@ class ToPage{
         catch{
             throw new Error("");
         }
+    }
+
+    static #params = {};
+    static get params(){
+        return this.#params;
     }
     
     /**
